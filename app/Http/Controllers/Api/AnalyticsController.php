@@ -31,7 +31,7 @@ class AnalyticsController extends Controller
         $incomeVsExpenses = Transaction::where('user_id', $user->id)
             ->whereYear('transaction_date', $year)
             ->join('categories', 'transactions.category_id', '=', 'categories.id')
-            ->selectRaw('strftime("%m", transaction_date) as month, categories.type, SUM(amount) as total')
+            ->selectRaw('MONTH(transaction_date) as month, categories.type, SUM(amount) as total')
             ->groupBy('month', 'categories.type')
             ->orderBy('month')
             ->get();
@@ -72,7 +72,7 @@ class AnalyticsController extends Controller
         // Recent transactions trend
         $recentTrend = Transaction::where('user_id', $user->id)
             ->whereDate('transaction_date', '>=', Carbon::now()->subDays(30))
-            ->selectRaw('date(transaction_date) as date, SUM(amount) as total')
+            ->selectRaw('DATE(transaction_date) as date, SUM(amount) as total')
             ->groupBy('date')
             ->orderBy('date')
             ->get();
