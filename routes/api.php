@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/categories/selection/check", [CategoryController::class, "checkSelection"]);
 
     // Temporary route to seed categories (remove after use)
-    Route::post("/categories/seed", [CategoryController::class, "seedCategories"]);
+    Route::get("/categories/seed", [CategoryController::class, "seedCategories"]);
 
     // Debts
     Route::apiResource('debts', DebtController::class);
