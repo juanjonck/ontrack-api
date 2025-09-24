@@ -200,4 +200,36 @@ class CategoryController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Seed categories in the database (temporary method)
+     */
+    public function seedCategories()
+    {
+        try {
+            // Check if categories already exist
+            if (Category::count() > 0) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Categories already exist',
+                    'count' => Category::count()
+                ]);
+            }
+
+            // Run the seeder logic
+            $seeder = new \Database\Seeders\SystemCategorySeeder();
+            $seeder->run();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Categories seeded successfully',
+                'count' => Category::count()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to seed categories: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

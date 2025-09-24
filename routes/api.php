@@ -41,7 +41,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Categories
     Route::apiResource('categories', CategoryController::class);
-        Route::get("/categories/all", [CategoryController::class, "getAllCategories"]);    Route::post("/categories/selection", [CategoryController::class, "storeUserSelection"]);    Route::get("/categories/selection/check", [CategoryController::class, "checkSelection"]);
+    Route::get("/categories/all", [CategoryController::class, "getAllCategories"]);
+    Route::post("/categories/selection", [CategoryController::class, "storeUserSelection"]);
+    Route::get("/categories/selection/check", [CategoryController::class, "checkSelection"]);
+
+    // Temporary route to seed categories (remove after use)
+    Route::post("/categories/seed", [CategoryController::class, "seedCategories"]);
 
     // Debts
     Route::apiResource('debts', DebtController::class);
