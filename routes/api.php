@@ -39,14 +39,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('goals', GoalController::class);
     Route::get('/goals/export', [GoalController::class, 'export']);
 
-    // Categories
-    Route::apiResource('categories', CategoryController::class);
+    // Categories - specific routes MUST come before apiResource
     Route::get("/categories/all", [CategoryController::class, "getAllCategories"]);
     Route::post("/categories/selection", [CategoryController::class, "storeUserSelection"]);
     Route::get("/categories/selection/check", [CategoryController::class, "checkSelection"]);
-
-    // Temporary route to seed categories (remove after use)
-    Route::get("/categories/seed", [CategoryController::class, "seedCategories"]);
+    Route::get("/categories/seed", [CategoryController::class, "seedCategories"]); // temporary
+    Route::apiResource('categories', CategoryController::class);
 
     // Debts
     Route::apiResource('debts', DebtController::class);
